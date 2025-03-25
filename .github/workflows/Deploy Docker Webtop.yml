@@ -115,7 +115,7 @@ jobs:
                 - SUBFOLDER=/
                 - TITLE=${{ github.event.inputs.version }}
                 - DOCKER_MODS=linuxserver/mods:universal-package-install 
-                - INSTALL_PACKAGES=fonts-noto-cjk|noto-fonts-cjk
+                - INSTALL_PACKAGES=noto-fonts-cjk
                 - LC_ALL=zh_CN.UTF-8
               volumes:
                 - ./config:/config
