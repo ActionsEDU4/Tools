@@ -77,9 +77,9 @@ jobs:
                 - TZ=Etc/UTC
                 - SUBFOLDER=/
                 - TITLE=Webtop 
-                -e DOCKER_MODS=linuxserver/mods:universal-package-install 
-                -e INSTALL_PACKAGES=font-noto-cjk
-                -e LC_ALL=zh_CN.UTF-8
+                - DOCKER_MODS=linuxserver/mods:universal-package-install 
+                - INSTALL_PACKAGES=font-noto-cjk
+                - LC_ALL=zh_CN.UTF-8
               volumes:
                 - ./config:/config
                 - /var/run/docker.sock:/var/run/docker.sock
