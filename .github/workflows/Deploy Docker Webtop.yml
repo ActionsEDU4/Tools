@@ -106,7 +106,7 @@ jobs:
             arch)
               INSTALL_PACKAGES="noto-fonts-cjk"
               ;;
-            debian|ubuntu|alpine)
+            debian|ubuntu)
               INSTALL_PACKAGES="fonts-noto-cjk"
               ;;
             alpine)
