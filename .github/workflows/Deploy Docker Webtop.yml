@@ -2,6 +2,43 @@ name: Deploy Docker Webtop
 
 on:
   workflow_dispatch:
+    inputs:
+      version:
+        description: 'Linux 发行版'
+        required: true
+        default: 'debian-kde	'
+        type: choice
+        options:
+          - "debian-kde"
+          - "arch-kde"
+          - "ubuntu-kde"
+          - "alpine-kde"
+          - "fedora-kde"
+          - "debian-xfce"
+          - "arch-xfce"
+          - "ubuntu-xfce"
+          - "alpine-xfce"
+          - "fedora-xfce"
+          - "debian-mate"
+          - "arch-mate"
+          - "ubuntu-mate"
+          - "alpine-mate"
+          - "fedora-mate"
+          - "debian-i3"
+          - "arch-i3"
+          - "ubuntu-i3"
+          - "alpine-i3"
+          - "fedora-i3"
+          - "debian-openbox"
+          - "arch-openbox"
+          - "ubuntu-openbox"
+          - "alpine-openbox"
+          - "fedora-openbox"
+          - "debian-icewm"
+          - "arch-icewm"
+          - "ubuntu-icewm"
+          - "alpine-icewm"
+          - "fedora-icewm"
 
 jobs:
   Server:
@@ -67,7 +104,7 @@ jobs:
           cat > docker-compose.yml << 'EOF'
           services:
             webtop:
-              image: lscr.io/linuxserver/webtop:latest
+              image: lscr.io/linuxserver/webtop:${{ github.event.inputs.version }}
               container_name: webtop
               security_opt:
                 - seccomp:unconfined
@@ -98,7 +135,7 @@ jobs:
 
           # 构造 Telegram 消息
           message=$(cat <<EOF
-          <b>🚀 MySQL数据库部署成功 🎉</b>
+          <b>🚀 Linux GUI 部署成功 🎉</b>
 
           🖥️ <b>公网 IP:</b> <code>${{ steps.check_server.outputs.public_ip }}</code>  
           🏠 <b>本地 IP:</b> <code>${{ steps.get_local_ip.outputs.local_ip }}</code>  
@@ -110,7 +147,7 @@ jobs:
           📮 <b>邮政编码:</b> <code>${{ steps.check_server.outputs.postal }}</code>  
           ⏰ <b>时区:</b> <code>${{ steps.check_server.outputs.timezone }}</code>  
 
-          🏠 <b>Docker Webtop 地址:</b> <code>${{ steps.get_local_ip.outputs.local_ip }}:3000</code>  
+          🏠 <b>访问地址:</b> <code>http://${{ steps.get_local_ip.outputs.local_ip }}:3000</code>  
 
           🕒 <b>当前时间:</b> <code>$current_time</code>  
           EOF
