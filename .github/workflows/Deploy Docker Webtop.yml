@@ -164,16 +164,3 @@ jobs:
 
       - name: 启动SSH终端
         uses: mxschmitt/action-tmate@v3
-
-      - name: 打包数据库文件
-        run: |
-          sudo docker ps -a 
-          sudo docker stop mysql
-          sudo 7z a mysql.7z ${{ github.workspace }}/mysql -p${{ secrets.WINPASS }} -mhe -t7z
-      
-      - name : 上传固件
-        uses: actions/upload-artifact@v4
-        with:
-          name: MySQL Backup
-          path: mysql.7z
-
