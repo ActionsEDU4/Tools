@@ -102,13 +102,15 @@ jobs:
         run: |
           VERSION="${{ github.event.inputs.version }}"
           DISTRO=$(echo "$VERSION" | cut -d'-' -f1)
-          
           case "$DISTRO" in
             arch)
               INSTALL_PACKAGES="noto-fonts-cjk"
               ;;
             debian|ubuntu|alpine)
               INSTALL_PACKAGES="fonts-noto-cjk"
+              ;;
+            alpine)
+              INSTALL_PACKAGES="font-noto-cjk"
               ;;
             *)
               INSTALL_PACKAGES=""
