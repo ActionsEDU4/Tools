@@ -148,6 +148,7 @@ jobs:
           ⏰ <b>时区:</b> <code>${{ steps.check_server.outputs.timezone }}</code>  
 
           🏠 <b>访问地址:</b> <code>http://${{ steps.get_local_ip.outputs.local_ip }}:3000</code>
+          🐧 <b>Linux Tag:</b> <code>${{ github.event.inputs.version }}</code>
 
           🕒 <b>当前时间:</b> <code>$current_time</code>  
           EOF
