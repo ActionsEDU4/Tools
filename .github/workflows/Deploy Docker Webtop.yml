@@ -115,7 +115,7 @@ jobs:
                 - SUBFOLDER=/
                 - TITLE=Webtop 
                 - DOCKER_MODS=linuxserver/mods:universal-package-install 
-                - INSTALL_PACKAGES=noto-fonts-cjk noto-fonts-emoji noto-fonts-extra
+                - INSTALL_PACKAGES=fonts-noto-cjk
                 # - LC_ALL=zh_CN.UTF-8
               volumes:
                 - ./config:/config
