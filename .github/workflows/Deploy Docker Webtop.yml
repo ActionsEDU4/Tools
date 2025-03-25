@@ -97,25 +97,25 @@ jobs:
           echo "提取到本地 IP: ${LOCAL_IP}"
           echo "local_ip=${LOCAL_IP}" >> $GITHUB_OUTPUT
 
-          - name: 解析 Linux 发行版并设置安装包
-          id: set_install_packages
-          run: |
-            VERSION="${{ github.event.inputs.version }}"
-            DISTRO=$(echo "$VERSION" | cut -d'-' -f1)
-            
-            case "$DISTRO" in
-              arch)
-                INSTALL_PACKAGES="noto-fonts-cjk"
-                ;;
-              debian|ubuntu|alpine)
-                INSTALL_PACKAGES="fonts-noto-cjk"
-                ;;
-              *)
-                INSTALL_PACKAGES=""
-                ;;
-            esac
-            
-            echo "INSTALL_PACKAGES=$INSTALL_PACKAGES" >> $GITHUB_ENV
+      - name: 解析 Linux 发行版并设置安装包
+        id: set_install_packages
+        run: |
+          VERSION="${{ github.event.inputs.version }}"
+          DISTRO=$(echo "$VERSION" | cut -d'-' -f1)
+          
+          case "$DISTRO" in
+            arch)
+              INSTALL_PACKAGES="noto-fonts-cjk"
+              ;;
+            debian|ubuntu|alpine)
+              INSTALL_PACKAGES="fonts-noto-cjk"
+              ;;
+            *)
+              INSTALL_PACKAGES=""
+              ;;
+          esac
+          
+          echo "INSTALL_PACKAGES=$INSTALL_PACKAGES" >> $GITHUB_ENV
 
       - name: 部署 Docker Webtop
         run: |
