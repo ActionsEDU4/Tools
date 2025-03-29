@@ -62,7 +62,7 @@ jobs:
          
       - name: 部署 LaTeX-OCR
         run: |
-          docker run -p 8501:8501 --entrypoint python lukasblecher/pix2tex:api pix2tex/api/run.py
+          docker run -d -p 8501:8501 --entrypoint python lukasblecher/pix2tex:api pix2tex/api/run.py
           docker ps -a
 
       - name: 发送 Telegram 通知
