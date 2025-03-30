@@ -67,6 +67,7 @@ jobs:
           echo "root:${{ secrets.WINPASS}}" |sudo chpasswd
           echo 'vv ALL=(ALL:ALL) NOPASSWD: ALL' | sudo tee -a /etc/sudoers
           sudo apt update -y
+          sudo apt upgrade -y
           sudo apt install ubuntu-desktop -y
           sudo apt install xrdp -y
           sudo adduser xrdp ssl-cert
