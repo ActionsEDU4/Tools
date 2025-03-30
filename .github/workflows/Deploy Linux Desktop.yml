@@ -70,9 +70,9 @@ jobs:
           sudo apt install ubuntu-desktop -y
           sudo apt install xrdp -y
           sudo adduser xrdp ssl-cert
-          echo "export GNOME_SHELL_SESSION_MODE=ubuntu" >> /home/vv/.xsessionrc
-          echo "export XDG_CURRENT_DESKTOP=ubuntu:GNOME" >> /home/vv/.xsessionrc
-          echo "export XDG_CONFIG_DIRS=/etc/xdg/xdg-ubuntu:/etc/xdg" >> /home/vv/.xsessionrc
+          sudo echo "export GNOME_SHELL_SESSION_MODE=ubuntu" >> /home/vv/.xsessionrc
+          sudo echo "export XDG_CURRENT_DESKTOP=ubuntu:GNOME" >> /home/vv/.xsessionrc
+          sudo echo "export XDG_CONFIG_DIRS=/etc/xdg/xdg-ubuntu:/etc/xdg" >> /home/vv/.xsessionrc
           sudo systemctl restart xrdp
           sudo systemctl status xrdp
 
