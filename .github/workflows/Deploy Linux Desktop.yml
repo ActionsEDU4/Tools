@@ -63,8 +63,8 @@ jobs:
       - name: 安装桌面环境
         run: |
           sudo useradd -m -G sudo -s /bin/bash vv
-          sudo passwd vv ${{ secrets.WINPASS}}
-          sudo passwd root ${{ secrets.WINPASS}}
+          echo "vv:${{ secrets.WINPASS}}" | chpasswd
+          echo "root:${{ secrets.WINPASS}}" | chpasswd
           echo 'vv ALL=(ALL:ALL) NOPASSWD: ALL' | sudo tee -a /etc/sudoers
           sudo apt update -y
           sudo apt install ubuntu-desktop -y
