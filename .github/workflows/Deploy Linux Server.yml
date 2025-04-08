@@ -69,6 +69,14 @@ jobs:
           echo "提取到本地 IP: ${LOCAL_IP}"
           echo "local_ip=${LOCAL_IP}" >> $GITHUB_OUTPUT
 
+      - name: 设置环境
+        run: |
+          sudo apt update
+          sudo apt install -y aria2
+          mkdir upload
+          echo "上传文件目录: $(pwd)/upload"
+            
+
       - name: 发送 Telegram 通知
         run: |
           # 获取当前时间（UTC+8 时区，北京时间）
@@ -103,3 +111,9 @@ jobs:
 
       - name: 启动SSH终端
         uses: mxschmitt/action-tmate@v3
+
+      - name: 上传文件
+        uses: actions/upload-artifact@v4
+        with:
+          name: my-artifact
+          path: upload
