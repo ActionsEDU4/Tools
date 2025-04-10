@@ -4,14 +4,33 @@ on:
   workflow_dispatch:
     inputs:
       download_url:
-        description: 'URL of the file to download'
+        description: '文件URL'
         required: true
         default: 'https://releases.ubuntu.com/24.04.2/ubuntu-24.04.2-live-server-amd64.iso'
+      clean_switch:
+        description: '是否扩容磁盘'
+        required: true
+        default: '否'
+        type: choice
+        options:
+          - "是"
+          - "否"
 
 jobs:
   Server:
     runs-on: ubuntu-latest
     steps:
+      - name: 最大化磁盘空间
+        if: ${{ github.event.inputs.clean_switch == '否' }}
+        uses: easimon/maximize-build-space@master
+        with:
+          overprovision-lvm: 'true'
+          remove-dotnet: 'true'
+          remove-android: 'true'
+          remove-haskell: 'true'
+          remove-codeql: 'true'
+
+
       - name: 迁出代码
         uses: actions/checkout@v3
         
