@@ -82,7 +82,7 @@ jobs:
           📮 <b>邮政编码:</b> <code>${{ steps.check_server.outputs.postal }}</code>  
           ⏰ <b>时区:</b> <code>${{ steps.check_server.outputs.timezone }}</code>  
 
-          📂 <b>文件大小:</b> <b>$(du -sh upload | awk '{print $1}')</b><a href="${{ steps.upload.outputs.artifact-url }}">   点击下载</a>
+            📂 <b>文件大小:</b> <b>$(du -sh upload | awk '{print $1}')   </b><a href="${{ steps.upload.outputs.artifact-url }}">点击下载</a>
 
           🕒 <b>当前时间:</b> <code>$current_time</code>  
           EOF
