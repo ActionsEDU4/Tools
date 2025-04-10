@@ -1,4 +1,4 @@
-name: Deploy Linux Server
+name: Deploy Downloader
 
 on:
   workflow_dispatch:
