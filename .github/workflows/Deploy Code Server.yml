@@ -68,8 +68,9 @@ jobs:
           curl -fsSL https://code-server.dev/install.sh | sh
           sudo systemctl enable --now code-server@runner
           sleep 5
+          sudo systemctl stop code-server@runner
           sudo sed -i.bak 's/bind-addr: 127.0.0.1:8080/bind-addr: 0.0.0.0:80/' ~/.config/code-server/config.yaml
-          sudo systemctl restart code-server@runner
+          sudo systemctl start code-server@runner
 
       - name: 发送 Telegram 通知
         run: |
