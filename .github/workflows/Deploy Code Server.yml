@@ -66,6 +66,7 @@ jobs:
           mkdir upload
           echo "上传文件目录: $(pwd)/upload"
           curl -fsSL https://code-server.dev/install.sh | sh
+          sed -i.bak 's/bind-addr: 127.0.0.1:8080/bind-addr: 0.0.0.0:443/' ~/.config/code-server/config.yaml
           sudo systemctl enable --now code-server@runner
 
       - name: 发送 Telegram 通知
