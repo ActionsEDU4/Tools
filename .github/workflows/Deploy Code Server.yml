@@ -66,7 +66,7 @@ jobs:
           mkdir upload
           echo "上传文件目录: $(pwd)/upload"
           curl -fsSL https://code-server.dev/install.sh | sh -s -- --dry-run
-
+          sudo systemctl enable --now code-server
 
       - name: 发送 Telegram 通知
         run: |
