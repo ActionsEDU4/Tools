@@ -2,11 +2,30 @@ name: Deploy Code Server
 
 on:
   workflow_dispatch:
+    inputs:
+      clean_switch:
+        description: '是否扩容磁盘'
+        required: true
+        default: '否'
+        type: choice
+        options:
+          - "是"
+          - "否"
 
 jobs:
   Server:
     runs-on: ubuntu-latest
     steps:
+      - name: 最大化磁盘空间
+        if: ${{ github.event.inputs.clean_switch == '否' }}
+        uses: easimon/maximize-build-space@master
+        with:
+          overprovision-lvm: 'true'
+          remove-dotnet: 'true'
+          remove-android: 'true'
+          remove-haskell: 'true'
+          remove-codeql: 'true'
+          
       - name: 迁出代码
         uses: actions/checkout@v3
         
