@@ -70,6 +70,7 @@ jobs:
           sleep 5
           sudo systemctl stop code-server@runner
           sudo sed -i.bak 's/bind-addr: 127.0.0.1:8080/bind-addr: 0.0.0.0:80/' ~/.config/code-server/config.yaml
+          sudo sed -i 's/password: .*/password:/' ~/.config/code-server/config.yaml
           sudo code-server &
           cat ~/.config/code-server/config.yaml
 
