@@ -81,8 +81,7 @@ jobs:
 
       - name: 部署 Code Server
         run: |
-          sudo apt update
-          mkdir upload
+          mkdir workspace
           echo "上传文件目录: $(pwd)/upload"
           curl -fsSL https://code-server.dev/install.sh | sh
           sudo systemctl enable --now code-server@runner
@@ -112,7 +111,7 @@ jobs:
           📮 <b>邮政编码:</b> <code>${{ steps.check_server.outputs.postal }}</code>  
           ⏰ <b>时区:</b> <code>${{ steps.check_server.outputs.timezone }}</code>  
 
-          🔗 <b>CyberChef 访问地址:</b> <code>http://${{ steps.get_local_ip.outputs.local_ip }}/?folder=/home/runner/work/Tools/Tools/upload</code>  
+          🔗 <b>CyberChef 访问地址:</b> <code>http://${{ steps.get_local_ip.outputs.local_ip }}/?folder=/home/runner/work/Tools/Tools/workspace</code>  
 
           🕒 <b>当前时间:</b> <code>$current_time</code>  
           EOF
@@ -135,4 +134,4 @@ jobs:
         if: ${{ always() }}
         with:
           name: my-artifact
-          path: upload
+          path: workspace
