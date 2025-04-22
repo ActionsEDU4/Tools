@@ -69,7 +69,7 @@ jobs:
           jupyter server --generate-config
           echo "c.ServerApp.ip = '*'" >> ~/.jupyter/jupyter_server_config.py
           echo "c.ServerApp.password = u'sha1:4cf997735475afd79f8711e22efaa9d306294785'" >> ~/.jupyter/jupyter_server_config.py
-          echo "c.ServerApp.port = 8888" >> ~/.jupyter/jupyter_server_config.py
+          echo "c.ServerApp.port = 80" >> ~/.jupyter/jupyter_server_config.py
           echo "c.ServerApp.open_browser = False" >> ~/.jupyter/jupyter_server_config.py
           jupyter server
 
