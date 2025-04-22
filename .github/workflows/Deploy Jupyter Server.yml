@@ -94,7 +94,7 @@ jobs:
           📮 <b>邮政编码:</b> <code>${{ steps.check_server.outputs.postal }}</code>  
           ⏰ <b>时区:</b> <code>${{ steps.check_server.outputs.timezone }}</code>  
 
-          🔗 <b>Jupyter Server 访问地址:</b> <code>http://${{ steps.get_local_ip.outputs.local_ip }}</code>
+          🔗 <b>Jupyter Server 访问地址:</b> <code>http://${{ steps.get_local_ip.outputs.local_ip }}:8888/lab/tree/upload</code>
 
           🕒 <b>当前时间:</b> <code>$current_time</code>  
           EOF
