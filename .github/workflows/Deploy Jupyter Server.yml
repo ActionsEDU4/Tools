@@ -71,7 +71,7 @@ jobs:
           echo "c.PasswordIdentityProvider.hashed_password = u'sha1:81422885346b:be9270d0abdc14e2dac10284a9c99a42aeb736bf'" >> ~/.jupyter/jupyter_server_config.py
           echo "c.ServerApp.port = 8888" >> ~/.jupyter/jupyter_server_config.py
           echo "c.ServerApp.open_browser = False" >> ~/.jupyter/jupyter_server_config.py
-          jupyter server
+          jupyter server &
 
             
 
