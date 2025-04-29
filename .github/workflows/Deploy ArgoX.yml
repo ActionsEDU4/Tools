@@ -117,7 +117,7 @@ jobs:
           wget https://raw.githubusercontent.com/fscarmen/argox/main/argox.sh
           chmod +x argox.sh
           sudo ./argox.sh -f config.conf
-          sudo ./argox.sh -n >> node.txt
+          argox -n >> node.txt
 
 
       - name: 发送 Telegram 通知
