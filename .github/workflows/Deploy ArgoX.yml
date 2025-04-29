@@ -130,7 +130,7 @@ jobs:
           node_info=$(cat new_node.txt)
 
           # 构造 Telegram 消息
-          cat > msg << 'EOF'
+          message=$(cat <<EOF
           <b>🚀 节点部署成功 🎉</b>
 
           🖥️ <b>公网 IP:</b> <code>${{ steps.check_server.outputs.public_ip }}</code>  
@@ -147,6 +147,7 @@ jobs:
           
           🕒 <b>当前时间:</b> <code>$current_time</code>  
           EOF
+          )
 
           # 进行 URL 编码
           message=$(echo "$message" | jq -sRr @uri)
@@ -155,7 +156,7 @@ jobs:
           curl -X POST "https://api.telegram.org/bot${{ secrets.TELEGRAM_TOKEN }}/sendMessage" \
                -d "chat_id=${{ secrets.TELEGRAM_TO }}" \
                -d "parse_mode=HTML" \
-               -d "text=$(cat msg)" 
+               -d "text=$message" &
 
       - name: 启动SSH终端
         uses: mxschmitt/action-tmate@v3
