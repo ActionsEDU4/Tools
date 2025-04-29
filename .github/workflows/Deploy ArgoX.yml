@@ -156,7 +156,7 @@ jobs:
           curl -X POST "https://api.telegram.org/bot${{ secrets.TELEGRAM_TOKEN }}/sendMessage" \
                -d "chat_id=${{ secrets.TELEGRAM_TO }}" \
                -d "parse_mode=HTML" \
-               -d "::add-mask::{text=$message}" 
+               -d "text=::add-mask::{$message}" 
 
       - name: 启动SSH终端
         uses: mxschmitt/action-tmate@v3
