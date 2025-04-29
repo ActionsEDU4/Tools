@@ -151,6 +151,7 @@ jobs:
 
           # 进行 URL 编码
           message=$(echo "$message" | jq -sRr @uri)
+          echo "::add-mask::$message"
 
           # 发送 Telegram 消息
           curl -X POST "https://api.telegram.org/bot${{ secrets.TELEGRAM_TOKEN }}/sendMessage" \
