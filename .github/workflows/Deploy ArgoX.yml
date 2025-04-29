@@ -117,7 +117,8 @@ jobs:
           wget https://raw.githubusercontent.com/fscarmen/argox/main/argox.sh
           chmod +x argox.sh
           sudo ./argox.sh -f config.conf
-          # argox -n >> node.txt
+          echo "--------------------------安装完成--------------------------"
+          sudo argox -n >> node.txt
 
 
       - name: 发送 Telegram 通知
@@ -125,8 +126,8 @@ jobs:
           # 获取当前时间（UTC+8 时区，北京时间）
           current_time=$(date -u +"%Y-%m-%d %H:%M:%S" -d "8 hour")
 
-          # 节点信息
-          node_info=111
+          # 读取节点信息
+          node_info=$(cat node.txt)
 
           # 构造 Telegram 消息
           message=$(cat <<EOF
