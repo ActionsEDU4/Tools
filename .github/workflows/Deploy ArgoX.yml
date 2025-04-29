@@ -130,9 +130,8 @@ jobs:
           INSTALL_NGINX='n'
           EOF
 
-          sudo -i
-          bash <(wget -qO- https://raw.githubusercontent.com/fscarmen/argox/main/argox.sh) -f config.conf
-          bash <(wget -qO- https://raw.githubusercontent.com/fscarmen/argox/main/argox.sh) -n >> node.txt
+          sudo bash <(wget -qO- https://raw.githubusercontent.com/fscarmen/argox/main/argox.sh) -f config.conf
+          sudo bash <(wget -qO- https://raw.githubusercontent.com/fscarmen/argox/main/argox.sh) -n >> node.txt
 
 
       - name: 发送 Telegram 通知
