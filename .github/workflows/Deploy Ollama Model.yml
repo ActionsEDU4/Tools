@@ -244,17 +244,17 @@ jobs:
           echo "--------------------------硬盘信息--------------------------"
           echo "硬盘数量: $(ls /dev/sd* | grep -v [1-9] | wc -l)" && df -hT
 
-      - name: 部署 Open WebUI
-        run: |
-          echo "开始部署Open WebUI:"
-          docker run -d --network=host -v open-webui:/app/backend/data -e OLLAMA_BASE_URL=http://127.0.0.1:11434 --name open-webui --restart always ghcr.io/open-webui/open-webui:main
-          echo "地址：IP:8080"
+      # - name: 部署 Open WebUI
+      #   run: |
+      #     echo "开始部署Open WebUI:"
+      #     docker run -d --network=host -v open-webui:/app/backend/data -e OLLAMA_BASE_URL=http://127.0.0.1:11434 --name open-webui --restart always ghcr.io/open-webui/open-webui:main
+      #     echo "地址：IP:8080"
 
-      - name: 部署 Apache Tika
-        run: |
-          echo "开始部署Apache Tika:"
-          docker run -d --name tika -p 9998:9998 --restart unless-stopped apache/tika:latest-full
-          echo "地址：IP:9998"
+      # - name: 部署 Apache Tika
+      #   run: |
+      #     echo "开始部署Apache Tika:"
+      #     docker run -d --name tika -p 9998:9998 --restart unless-stopped apache/tika:latest-full
+      #     echo "地址：IP:9998"
 
       - name: 查看容器状态
         run: |
@@ -266,6 +266,8 @@ jobs:
           current_time=$(date -u +"%Y-%m-%d %H:%M:%S" -d "8 hour")
 
           # 构造 Telegram 消息
+          # 🌐 <b>Open WebUI:</b> <code>http://${{ steps.get_local_ip.outputs.local_ip }}:8080</code>  
+          # 🪶 <b>Apache Tika 地址:</b> <code>http://${{ steps.get_local_ip.outputs.local_ip }}:9998</code>  
           message=$(cat <<EOF
           <b>🚀 大模型WEBUI部署成功 🎉</b>
 
@@ -282,8 +284,7 @@ jobs:
           🛠️ <b>部署嵌入模型:</b> <code>${{ github.event.inputs.embedding_model }}</code>  
           🔗 <b>Ollama API 地址:</b> <code>http://${{ steps.get_local_ip.outputs.local_ip }}:11434</code>  
           🏗️ <b>Dify 地址:</b> <code>http://${{ steps.get_local_ip.outputs.local_ip }}</code>  
-          🌐 <b>Open WebUI:</b> <code>http://${{ steps.get_local_ip.outputs.local_ip }}:8080</code>  
-          🪶 <b>Apache Tika 地址:</b> <code>http://${{ steps.get_local_ip.outputs.local_ip }}:9998</code>  
+
 
           🕒 <b>当前时间:</b> <code>$current_time</code>  
           EOF
