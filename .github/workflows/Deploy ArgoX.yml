@@ -118,7 +118,7 @@ jobs:
           chmod +x argox.sh
           sudo ./argox.sh -f config.conf ||echo "安装完成"
           sudo argox -n >> node.txt || echo "读取完成"
-          sed -n -e '11p' -e '21p' -e '22p' node.txt > tmp && mv tmp node.txt
+          sed -n -e '11p' node.txt > tmp && mv tmp node.txt
           cat node.txt
 
 
