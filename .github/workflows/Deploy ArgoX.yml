@@ -119,7 +119,7 @@ jobs:
           sudo ./argox.sh -f config.conf ||echo "安装完成"
           sudo argox -n >> node.txt || echo "获取完成"
           cat node.txt && echo "读取完成"
-          awk 'NR==11 || NR==21' node.txt > new_node.txt
+          awk 'NR==14' node.txt > new_node.txt
           cat new_node.txt
 
 
