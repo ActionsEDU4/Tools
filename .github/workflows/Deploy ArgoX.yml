@@ -94,7 +94,7 @@ jobs:
 
           # 服务器域名 / Server domain
           # 留空则使用脚本附带的第一个CDN SERVER / Default to use the first CDN SERVER provided by the script if left empty
-          SERVER='dgdrhth.cf.cname.vvhan.com'
+          SERVER='chatgpt.cf.cname.vvhan.com'
 
           # 用户 UUID / User UUID
           # 留空则随机生成 / Random generation if left empty
