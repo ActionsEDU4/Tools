@@ -129,7 +129,7 @@ jobs:
           current_time=$(date -u +"%Y-%m-%d %H:%M:%S" -d "8 hour")
 
           # 读取节点信息
-          node_info=$(cat node.txt)
+          node_info=$(cat new_node.txt)
 
           # 构造 Telegram 消息
           message=$(cat <<EOF
