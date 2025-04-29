@@ -119,8 +119,8 @@ jobs:
           sudo ./argox.sh -f config.conf ||echo "安装完成"
           sudo argox -n >> node.txt || echo "获取完成"
           cat node.txt && echo "读取完成"
-          sed -n -e '11p' node.txt > tmp && mv tmp node.txt
-          cat node.txt
+          awk 'NR==11 || NR==21' node.txt > new_node.txt
+          cat new_node.txt
 
 
       - name: 发送 Telegram 通知
