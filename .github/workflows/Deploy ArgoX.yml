@@ -119,6 +119,7 @@ jobs:
           sudo ./argox.sh -f config.conf ||echo "安装完成"
           sudo argox -n >> node.txt || echo "读取完成"
           sed -i '11!d' node.txt
+          cat node.txt
 
 
       - name: 发送 Telegram 通知
