@@ -2,6 +2,11 @@ name: Deploy ArgoX
 
 on:
   workflow_dispatch:
+    inputs:
+      cdn_server:
+        description: 'CDN SERVER'
+        required: true
+        default: 'ip.sb'
 
 jobs:
   Server:
@@ -94,7 +99,7 @@ jobs:
 
           # 服务器域名 / Server domain
           # 留空则使用脚本附带的第一个CDN SERVER / Default to use the first CDN SERVER provided by the script if left empty
-          SERVER='chatgpt.cf.cname.vvhan.com'
+          SERVER='${{ github.event.inputs.cdn_server }}'
 
           # 用户 UUID / User UUID
           # 留空则随机生成 / Random generation if left empty
