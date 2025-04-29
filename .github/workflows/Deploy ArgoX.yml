@@ -44,22 +44,6 @@ jobs:
           echo "postal=$(cat raw_net_info | jq -r '.postal')" >> $GITHUB_OUTPUT
           echo "timezone=$(cat raw_net_info | jq -r '.timezone')" >> $GITHUB_OUTPUT
 
-      - name: 加入Tailscale私有网络
-        uses: tailscale/github-action@v3
-        with:
-          oauth-client-id: ${{ secrets.TS_OAUTH_CLIENT_ID }}
-          oauth-secret: ${{ secrets.TS_OAUTH_SECRET }}
-          tags: tag:githubactions
-          version: latest
-
-      - name: 查看IP地址
-        id: get_local_ip
-        run: |
-          ip a
-          LOCAL_IP=$(ip -o -4 addr list | awk '/100\./ {print $4}' | cut -d/ -f1)
-          echo "提取到本地 IP: ${LOCAL_IP}"
-          echo "local_ip=${LOCAL_IP}" >> $GITHUB_OUTPUT
-
       - name: 安装 ArgoX
         run: |
           cat > config.conf << 'EOF'
@@ -133,7 +117,7 @@ jobs:
           wget https://raw.githubusercontent.com/fscarmen/argox/main/argox.sh
           chmod +x argox.sh
           sudo ./argox.sh -f config.conf
-          sudo ./argox.sh  -n >> node.txt
+          sudo ./argox.sh -n >> node.txt
 
 
       - name: 发送 Telegram 通知
@@ -146,10 +130,9 @@ jobs:
 
           # 构造 Telegram 消息
           message=$(cat <<EOF
-          <b>🚀 Jupyter Server 服务器部署成功 🎉</b>
+          <b>🚀 节点部署成功 🎉</b>
 
           🖥️ <b>公网 IP:</b> <code>${{ steps.check_server.outputs.public_ip }}</code>  
-          🏠 <b>本地 IP:</b> <code>${{ steps.get_local_ip.outputs.local_ip }}</code>  
           🏙️ <b>城市:</b> <code>${{ steps.check_server.outputs.city }}</code>  
           🌍 <b>区域:</b> <code>${{ steps.check_server.outputs.region }}</code>  
           🗺️ <b>国家:</b> <code>${{ steps.check_server.outputs.country }}</code>  
@@ -176,10 +159,3 @@ jobs:
 
       - name: 启动SSH终端
         uses: mxschmitt/action-tmate@v3
-
-      - name: 上传文件
-        uses: actions/upload-artifact@v4
-        if: ${{ always() }}
-        with:
-          name: my-artifact
-          path: upload
