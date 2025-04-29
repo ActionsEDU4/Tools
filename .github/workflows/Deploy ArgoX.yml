@@ -62,13 +62,86 @@ jobs:
 
       - name: 安装 ArgoX
         run: |
-          sudo apt update
-                      
+          cat > config.conf << 'EOF'
+          # 使用说明 / Usage:
+          # 1. 复制此文件并重命名为 config.conf / Copy this file and rename it to config.conf
+          # 2. 根据需要修改配置参数 / Modify the configuration parameters as needed
+          # 3. 执行安装命令 / Run the installation command:
+          #    bash <(wget -qO- https://raw.githubusercontent.com/fscarmen/ArgoX/main/sing-box.sh) -f config.conf
+
+          # 配置文件说明 / Configuration Description:
+
+          # 语言选项 / Language option: 
+          # C 为中文 / C for Chinese
+          # E 为英文 / E for English
+          # 留空默认为英文 / Default is English if left empty
+          L='C'
+
+          # 服务器 IP 地址，支持 IPv4 或 IPv6 / Server IP address, supports IPv4 or IPv6
+          # 例如 / For example: IPv4: 123.123.123.123; IPv6: 2a01:4f8:272:5aa1:dc88:ff6e:5305:1234
+          SERVER_IP=''
+
+          # Argo 配置 / Argo Configuration
+          # Argo 域名设置 / Argo domain settings
+          # 例如 / For example: ARGO_DOMAIN='argo.xray.com'
+          # 留空则使用临时隧道 / Use temporary tunnel if left empty
+          ARGO_DOMAIN=''
+
+          # Argo 认证信息 / Argo authentication info
+          # JSON 格式示例 / JSON format example: 
+          # ARGO_AUTH='{"AccountTag":"9cc9e3e4dag29d2a02e297f14f20513a","TunnelSecret":"vRzeQmSagqjCoQ0mzvl0qDR8dVROE889m0TnbZhJKHs=","TunnelID":"acd8c712-b088-4660-8187-e69abfa38443"}'
+          # Token 格式示例 / Token format example:
+          # ARGO_AUTH='eyJhIjoiOWNjOWUzZTRkOGYyOWQyYTAyZTI5N2YxNagyFzUxM2EiLCJ0IjoiYTcyMmUwNjYtODlmYi00ZjJmLTgagDQtOGEwOTVhNTkzM2I2IiwicyI6Ik9XTTFaak0xWWprdE16QTRNQzAwTUdVMExUbGlaV0V0TmpFek9UZzFNRGczWkdRNCJ9'
+          # 留空则使用临时隧道 / Use temporary tunnel if left empty
+          ARGO_AUTH=''
+
+          # Xray 配置 / Xray Configuration
+          # Reality 端口 / Reality port
+          # 留空则随机生成 / Random generation if left empty
+          REALITY_PORT=''
+
+          # Reality 私钥 / Reality private key
+          # 留空则随机生成 / Random generation if left empty
+          REALITY_PRIVATE=''
+
+          # Reality 公钥 / Reality public key
+          # 留空则随机生成 / Random generation if left empty
+          REALITY_PUBLIC=''
+
+          # 服务器域名 / Server domain
+          # 留空则使用脚本附带的第一个CDN SERVER / Default to use the first CDN SERVER provided by the script if left empty
+          SERVER='101.42.10.90'
+
+          # 用户 UUID / User UUID
+          # 留空则随机生成 / Random generation if left empty
+          UUID=''
+
+          # WebSocket 路径 / WebSocket path
+          # 留空则默认为 argox / Default is argox if left empty
+          WS_PATH=''
+
+          # 节点名称 / Node name
+          # 留空则默认使用 VPS hostname / Default to VPS hostname if left empty
+          NODE_NAME=''
+
+          # 订阅配置 / Subscribe Configuration
+          # 是否安装 Nginx 用于订阅 / Install Nginx for subscription or not [y/n]
+          # 默认为 y / Default is y
+          INSTALL_NGINX='n'
+          EOF
+
+          sudo -i
+          bash <(wget -qO- https://raw.githubusercontent.com/fscarmen/argox/main/argox.sh) -f config.conf
+          bash <(wget -qO- https://raw.githubusercontent.com/fscarmen/argox/main/argox.sh) -n >> node.txt
+
 
       - name: 发送 Telegram 通知
         run: |
           # 获取当前时间（UTC+8 时区，北京时间）
           current_time=$(date -u +"%Y-%m-%d %H:%M:%S" -d "8 hour")
+
+          # 节点信息
+          node_info=$(cat node.txt)
 
           # 构造 Telegram 消息
           message=$(cat <<EOF
@@ -84,8 +157,9 @@ jobs:
           📮 <b>邮政编码:</b> <code>${{ steps.check_server.outputs.postal }}</code>  
           ⏰ <b>时区:</b> <code>${{ steps.check_server.outputs.timezone }}</code>  
 
-          🔗 <b>ArgoX 访问地址:</b> <code>http://${{ steps.get_local_ip.outputs.local_ip }}:8888/lab/tree/upload</code>
-
+          📌 <b>节点连接信息:</b>  
+          <code>$node_info</code>  
+          
           🕒 <b>当前时间:</b> <code>$current_time</code>  
           EOF
           )
